@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grand Magal de Touba 2026 — Compte à Rebours</title>
+  <meta name="description" content="Compte à rebours officieux vers le Grand Magal de Touba 2026, 18 Safar 1448 AH. Célébrons ensemble la gloire de Cheikh Ahmadou Bamba." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold:       #C9A84C;
+      --gold-light: #F0D080;
+      --gold-dark:  #8B6914;
+      --navy:       #0A0F2E;
+      --navy-mid:   #111840;
+      --green:      #1A5C2A;
+      --green-light:#27AE60;
+      --white:      #FAF6EF;
+      --sand:       #E8D5A3;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ===== STAR CANVAS ===== */
+    #stars-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(10,15,46,0.65) 0%, rgba(10,15,46,0.85) 60%, rgba(10,15,46,1) 100%),
+        url('touba_mosque.png') center/cover no-repeat;
+      z-index: 1;
+    }
+
+    /* Floating geometric ornament */
+    .ornament-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.15);
+      animation: ringPulse 6s ease-in-out infinite;
+    }
+    .ornament-ring:nth-child(1) { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 0s; }
+    .ornament-ring:nth-child(2) { width: 800px; height: 800px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 1s; }
+    .ornament-ring:nth-child(3) { width:1050px; height:1050px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 2s; }
+
+    @keyframes ringPulse {
+      0%,100% { opacity: 0.15; }
+      50%      { opacity: 0.45; }
+    }
+
+    .hero-content { position: relative; z-index: 3; max-width: 900px; }
+
+    /* Crescent moon icon */
+    .crescent { font-size: 3rem; margin-bottom: 0.5rem; animation: floatY 4s ease-in-out infinite; }
+    @keyframes floatY {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+
+    .arabic-title {
+      font-family: 'Amiri', serif;
+      font-size: clamp(1.4rem, 4vw, 2.4rem);
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 20px rgba(201,168,76,0.5);
+    }
+
+    .main-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 6vw, 4.5rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+      text-shadow: none;
+    }
+
+    .sub-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      color: var(--sand);
+      margin-bottom: 0.3rem;
+    }
+
+    .date-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--green), var(--green-light));
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 1.2rem;
+      border-radius: 50px;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 20px rgba(39,174,96,0.4);
+    }
+
+    /* ===== COUNTDOWN ===== */
+    .countdown-wrapper {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .count-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 16px;
+      padding: 1.2rem 1.4rem;
+      min-width: 110px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .count-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.08), transparent);
+      pointer-events: none;
+    }
+    .count-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(201,168,76,0.2); }
+
+    .count-number {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1;
+      display: block;
+      text-shadow: 0 0 30px rgba(201,168,76,0.6);
+      transition: transform 0.15s;
+    }
+    .count-number.flip { transform: scale(1.15); }
+
+    .count-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-top: 0.4rem;
+    }
+
+    .days-highlight .count-number {
+      font-size: clamp(3rem, 8vw, 5rem);
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Param panel */
+    .param-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .param-panel label {
+      font-size: 0.78rem;
+      color: var(--sand);
+      letter-spacing: 0.1em;
+    }
+    .param-panel input[type="date"] {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 8px;
+      color: var(--gold-light);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.3s;
+      color-scheme: dark;
+    }
+    .param-panel input[type="date"]:focus { border-color: var(--gold); }
+    .param-panel button {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      border: none;
+      border-radius: 8px;
+      color: var(--navy);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.45rem 1rem;
+      cursor: pointer;
+      letter-spacing: 0.08em;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .param-panel button:hover { opacity: 0.85; transform: scale(1.04); }
+
+    /* ===== AUDIO PLAYER ===== */
+    .audio-player {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.6rem 1.2rem;
+      margin: 0 auto 1.5rem;
+      max-width: 420px;
+      width: 100%;
+    }
+    .audio-player .track-info {
+      flex: 1;
+      text-align: left;
+      overflow: hidden;
+    }
+    .track-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .track-sub {
+      font-size: 0.65rem;
+      color: var(--sand);
+      opacity: 0.7;
+    }
+    .btn-play {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: var(--navy);
+      transition: transform 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-play:hover { transform: scale(1.1); box-shadow: 0 4px 16px rgba(201,168,76,0.5); }
+
+    .waveform {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 24px;
+    }
+    .waveform .bar {
+      width: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      animation: waveDance 1.2s ease-in-out infinite;
+      opacity: 0.3;
+    }
+    .waveform.playing .bar { opacity: 1; }
+    .waveform .bar:nth-child(1) { animation-delay: 0s;    height: 8px; }
+    .waveform .bar:nth-child(2) { animation-delay: 0.1s;  height: 14px; }
+    .waveform .bar:nth-child(3) { animation-delay: 0.2s;  height: 20px; }
+    .waveform .bar:nth-child(4) { animation-delay: 0.15s; height: 16px; }
+    .waveform .bar:nth-child(5) { animation-delay: 0.05s; height: 10px; }
+
+    @keyframes waveDance {
+      0%,100% { transform: scaleY(1); }
+      50%      { transform: scaleY(0.3); }
+    }
+
+    /* ===== FLOATING SOUND BUTTON ===== */
+    #sound-fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 500;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      border: none;
+      border-radius: 50px;
+      color: var(--navy);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.7rem 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 6px 24px rgba(201,168,76,0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.05em;
+      animation: fabPulse 2.5s ease-in-out infinite;
+    }
+    #sound-fab:hover {
+      transform: scale(1.07);
+      box-shadow: 0 10px 32px rgba(201,168,76,0.6);
+      animation: none;
+    }
+    #sound-fab.muted { background: linear-gradient(135deg, #333, #555); color: var(--sand); }
+    @keyframes fabPulse {
+      0%,100% { box-shadow: 0 6px 24px rgba(201,168,76,0.45); }
+      50%      { box-shadow: 0 6px 36px rgba(201,168,76,0.8); }
+    }
+
+    /* ===== SCROLL INDICATOR ===== */
+    .scroll-hint {
+      position: relative; z-index: 3;
+      animation: bounceDown 2s ease-in-out infinite;
+      color: var(--sand); opacity: 0.5; font-size: 1.5rem; margin-top: 1rem;
+    }
+    @keyframes bounceDown {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(8px); }
+    }
+
+    /* ===== GALLERY SECTION ===== */
+    .section { padding: 5rem 1.5rem; position: relative; z-index: 2; }
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      color: var(--gold-light);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .section-divider {
+      width: 80px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 2.5rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .gallery-card {
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      border: 1px solid rgba(201,168,76,0.15);
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .gallery-card:hover { transform: scale(1.03); box-shadow: 0 16px 50px rgba(201,168,76,0.25); }
+    .gallery-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s;
+    }
+    .gallery-card:hover img { transform: scale(1.08); }
+    .gallery-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,15,46,0.85) 0%, transparent 60%);
+    }
+    .gallery-card-text {
+      position: absolute;
+      bottom: 1rem; left: 1rem; right: 1rem;
+    }
+    .gallery-card-text h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      color: var(--gold-light);
+      margin-bottom: 0.2rem;
+    }
+    .gallery-card-text p {
+      font-size: 0.75rem;
+      color: var(--sand);
+      opacity: 0.8;
+    }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 0 60px rgba(201,168,76,0.3);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      background: none; border: none;
+      color: var(--gold-light);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .lightbox-close:hover { transform: rotate(90deg); }
+
+    /* ===== INFO SECTION ===== */
+    .info-section {
+      background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 50%, var(--navy) 100%);
+      position: relative;
+    }
+    .info-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('islamic_pattern.png') center/cover no-repeat;
+      opacity: 0.04;
+    }
+
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .info-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 16px;
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .info-card:hover { transform: translateY(-6px); background: rgba(201,168,76,0.07); }
+    .info-card .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .info-card h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold-light);
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .info-card p {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: var(--sand);
+      opacity: 0.85;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      position: relative; z-index: 2;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      color: var(--sand);
+      opacity: 0.5;
+      font-size: 0.78rem;
+    }
+
+    /* ===== HIDDEN YT EMBED ===== */
+    #yt-frame-container {
+      position: fixed;
+      bottom: -9999px;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* ===== PARTICLE OVERLAY ===== */
+    .particles-overlay {
+      position: fixed;
+      inset: 0; z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 4px; height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particleFly linear infinite;
+    }
+    @keyframes particleFly {
+      0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.3; }
+      100% { opacity: 0; transform: translateY(-100vh) scale(1.2); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      .count-card { min-width: 70px; padding: 0.9rem 0.8rem; }
+      .countdown-wrapper { gap: 0.6rem; }
+      .audio-player { max-width: 95vw; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Star canvas -->
+<canvas id="stars-canvas"></canvas>
+
+<!-- Floating particles -->
+<div class="particles-overlay" id="particles"></div>
+
+<!-- Hidden YT player container -->
+<div id="yt-frame-container">
+  <div id="yt-player"></div>
+</div>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="Illustration" />
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="ornament-ring"></div>
+  <div class="ornament-ring"></div>
+  <div class="ornament-ring"></div>
+
+  <div class="hero-content">
+    <div class="crescent">🌙</div>
+
+    <p class="arabic-title">ٱلْمَغَلُ ٱلْكَبِيرُ — طُوبَى</p>
+    <h1 class="main-title">Grand Magal<br/>de Touba</h1>
+    <p class="sub-title">18 Safar 1448 AH · 2 Août 2026</p>
+    <span class="date-badge">🕌 Compte à Rebours Officieux</span>
+
+    <!-- Countdown -->
+    <div class="countdown-wrapper" id="countdown">
+      <div class="count-card days-highlight">
+        <span class="count-number" id="cd-days">--</span>
+        <span class="count-label">Jours</span>
+      </div>
+      <div class="count-card">
+        <span class="count-number" id="cd-hours">--</span>
+        <span class="count-label">Heures</span>
+      </div>
+      <div class="count-card">
+        <span class="count-number" id="cd-minutes">--</span>
+        <span class="count-label">Minutes</span>
+      </div>
+      <div class="count-card">
+        <span class="count-number" id="cd-seconds">--</span>
+        <span class="count-label">Secondes</span>
+      </div>
+    </div>
+
+    <!-- Date param -->
+    <div class="param-panel">
+      <label for="target-date">🗓 Date cible :</label>
+      <input type="date" id="target-date" value="2026-08-02" />
+      <button onclick="applyDate()">Appliquer</button>
+    </div>
+
+    <!-- Audio Player -->
+    <div class="audio-player">
+      <button class="btn-play" id="btn-play" onclick="toggleMute()">🔇</button>
+      <div class="track-info">
+        <div class="track-name" id="track-name">Xassida Mouride — Chants Sacrés</div>
+        <div class="track-sub" id="track-sub">En cours · Cliquez 🔊 pour activer le son</div>
+      </div>
+      <div class="waveform" id="waveform">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">↓</div>
+  </div>
+</section>
+
+<!-- Floating sound button -->
+<button id="sound-fab" onclick="toggleMute()">🔇 Activer le Son</button>
+
+<!-- ===== GALLERY ===== -->
+<section class="section">
+  <h2 class="section-title">Touba — La Cité Sainte</h2>
+  <div class="section-divider"></div>
+  <div class="gallery-grid">
+    <div class="gallery-card" onclick="openLightbox('touba_mosque.png')">
+      <img src="touba_mosque.png" alt="Grande Mosquée de Touba" loading="lazy" />
+      <div class="gallery-card-overlay"></div>
+      <div class="gallery-card-text">
+        <h3>Grande Mosquée de Touba</h3>
+        <p>La plus grande mosquée d'Afrique subsaharienne</p>
+      </div>
+    </div>
+    <div class="gallery-card" onclick="openLightbox('mouride_pilgrims.png')">
+      <img src="mouride_pilgrims.png" alt="Pèlerins Mourides" loading="lazy" />
+      <div class="gallery-card-overlay"></div>
+      <div class="gallery-card-text">
+        <h3>Pèlerinage vers Touba</h3>
+        <p>Des millions de fidèles affluent chaque année</p>
+      </div>
+    </div>
+    <div class="gallery-card" onclick="openLightbox('islamic_pattern.png')">
+      <img src="islamic_pattern.png" alt="Calligraphie islamique" loading="lazy" />
+      <div class="gallery-card-overlay"></div>
+      <div class="gallery-card-text">
+        <h3>Calligraphie & Spiritualité</h3>
+        <p>Héritage artistique et mystique mouride</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INFO SECTION ===== -->
+<section class="section info-section">
+  <h2 class="section-title">Le Mouridisme — قادر Xam Xam</h2>
+  <div class="section-divider"></div>
+  <div class="info-cards">
+    <div class="info-card">
+      <div class="icon">🕌</div>
+      <h3>Fondation</h3>
+      <p>Le mouvement mouride fut fondé par <strong>Cheikh Ahmadou Bamba Mbacké</strong> (Serigne Touba) à la fin du XIXᵉ siècle au Sénégal.</p>
+    </div>
+    <div class="info-card">
+      <div class="icon">📖</div>
+      <h3>Khassaïdes</h3>
+      <p>Les <em>Xassida</em> sont des poèmes mystiques composés par Serigne Touba, récités lors du Magal et des cérémonies religieuses.</p>
+    </div>
+    <div class="info-card">
+      <div class="icon">🌍</div>
+      <h3>Le Grand Magal</h3>
+      <p>Célébré le <strong>18 Safar</strong> de chaque année hijrie, le Magal commémore le départ en exil de Cheikh Ahmadou Bamba au Gabon en 1895.</p>
+    </div>
+    <div class="info-card">
+      <div class="icon">✨</div>
+      <h3>Touba</h3>
+      <p>Ville sainte au cœur du Sénégal, Touba accueille chaque année <strong>plus de 5 millions</strong> de pèlerins venus du monde entier.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>🌙 Grand Magal de Touba 2026 · 18 Safar 1448 AH · <em>Dieureudieuf Serigne Touba</em></p>
+  <p style="margin-top:0.3rem;">Site réalisé avec dévotion · Tous les droits réservés</p>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+// ─── STARS ─────────────────────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('stars-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    generateStars();
+  }
+
+  function generateStars() {
+    stars = [];
+    const n = Math.floor((canvas.width * canvas.height) / 4000);
+    for (let i = 0; i < n; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.4 + 0.2,
+        a: Math.random(),
+        speed: Math.random() * 0.008 + 0.002,
+        dir: Math.random() < 0.5 ? 1 : -1
+      });
+    }
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.a += s.speed * s.dir;
+      if (s.a <= 0 || s.a >= 1) s.dir *= -1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(240,208,128,${s.a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawStars);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  drawStars();
+})();
+
+// ─── PARTICLES ──────────────────────────────────────────────────────────
+(function() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.bottom = -(Math.random() * 50) + 'px';
+    const dur = (Math.random() * 12 + 8).toFixed(1) + 's';
+    const del = (Math.random() * 8).toFixed(1) + 's';
+    p.style.animation = `particleFly ${dur} ${del} linear infinite`;
+    p.style.width = p.style.height = (Math.random() * 3 + 1) + 'px';
+    container.appendChild(p);
+  }
+})();
+
+// ─── COUNTDOWN ──────────────────────────────────────────────────────────
+let targetDate = new Date('2026-08-02T00:00:00');
+
+// Support URL param: ?target=YYYY-MM-DD
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('target')) {
+    const d = new Date(params.get('target') + 'T00:00:00');
+    if (!isNaN(d)) {
+      targetDate = d;
+      document.getElementById('target-date').value = params.get('target');
+    }
+  }
+})();
+
+function padZ(n) { return String(Math.floor(n)).padStart(2, '0'); }
+
+function animateFlip(el) {
+  el.classList.add('flip');
+  setTimeout(() => el.classList.remove('flip'), 200);
+}
+
+let prevValues = { days: null, hours: null, minutes: null, seconds: null };
+
+function updateCountdown() {
+  const now  = new Date();
+  const diff = targetDate - now;
+
+  const elDays    = document.getElementById('cd-days');
+  const elHours   = document.getElementById('cd-hours');
+  const elMinutes = document.getElementById('cd-minutes');
+  const elSeconds = document.getElementById('cd-seconds');
+
+  if (diff <= 0) {
+    elDays.textContent    = '00';
+    elHours.textContent   = '00';
+    elMinutes.textContent = '00';
+    elSeconds.textContent = '00';
+    document.querySelector('.date-badge').textContent = '🎉 Le Magal est arrivé! Alhamdulillah!';
+    return;
+  }
+
+  const days    = Math.floor(diff / 86400000);
+  const hours   = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+
+  if (days    !== prevValues.days)    { elDays.textContent    = padZ(days);    animateFlip(elDays); }
+  if (hours   !== prevValues.hours)   { elHours.textContent   = padZ(hours);   animateFlip(elHours); }
+  if (minutes !== prevValues.minutes) { elMinutes.textContent = padZ(minutes); animateFlip(elMinutes); }
+  if (seconds !== prevValues.seconds) { elSeconds.textContent = padZ(seconds); animateFlip(elSeconds); }
+
+  prevValues = { days, hours, minutes, seconds };
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+function applyDate() {
+  const input = document.getElementById('target-date').value;
+  if (!input) return;
+  const d = new Date(input + 'T00:00:00');
+  if (!isNaN(d)) {
+    targetDate = d;
+    prevValues = { days: null, hours: null, minutes: null, seconds: null };
+    updateCountdown();
+    // Update URL without reload
+    const url = new URL(window.location.href);
+    url.searchParams.set('target', input);
+    history.replaceState({}, '', url.toString());
+  }
+}
+
+// ─── YOUTUBE AUDIO (bDL8fLJU0gg) — AUTOPLAY MUTED + LOOP ───────────────
+const YT_VIDEO_ID = 'bDL8fLJU0gg';
+let ytPlayer = null;
+let isMuted = true; // Start muted to respect browser autoplay policy
+
+// Load YouTube IFrame API
+(function() {
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+})();
+
+window.onYouTubeIframeAPIReady = function() {
+  ytPlayer = new YT.Player('yt-player', {
+    height: '1',
+    width: '1',
+    videoId: YT_VIDEO_ID,
+    playerVars: {
+      autoplay: 1,       // Start automatically
+      mute: 1,           // Muted at start (required by browsers)
+      loop: 1,           // Loop forever
+      playlist: YT_VIDEO_ID, // Required for loop to work
+      controls: 0,
+      disablekb: 1,
+      fs: 0,
+      rel: 0
+    },
+    events: {
+      onReady: function(e) {
+        e.target.playVideo();
+        // Show the FAB to invite user to unmute
+        updateSoundUI();
+      },
+      onStateChange: function(e) {
+        // Safety: if paused/ended, restart
+        if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
+          setTimeout(() => { if (ytPlayer) ytPlayer.playVideo(); }, 500);
+        }
+        if (e.data === YT.PlayerState.PLAYING) {
+          document.getElementById('waveform').classList.add('playing');
+        }
+      }
+    }
+  });
+};
+
+function toggleMute() {
+  if (!ytPlayer || typeof ytPlayer.unMute !== 'function') return;
+  isMuted = !isMuted;
+  if (isMuted) {
+    ytPlayer.mute();
+  } else {
+    ytPlayer.unMute();
+    ytPlayer.setVolume(80);
+  }
+  updateSoundUI();
+}
+
+function updateSoundUI() {
+  const fab = document.getElementById('sound-fab');
+  const btn = document.getElementById('btn-play');
+  const sub = document.getElementById('track-sub');
+  if (isMuted) {
+    fab.innerHTML = '🔇 Activer le Son';
+    fab.classList.add('muted');
+    btn.textContent = '🔇';
+    sub.textContent = 'En sourdine · Cliquez pour activer le son';
+  } else {
+    fab.innerHTML = '🔊 Son Activé';
+    fab.classList.remove('muted');
+    btn.textContent = '🔊';
+    sub.textContent = 'Chants Mourides en boucle ∞';
+    document.getElementById('waveform').classList.add('playing');
+  }
+}
+
+// ─── LIGHTBOX ───────────────────────────────────────────────────────────
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox(e) {
+  if (!e || e.target === document.getElementById('lightbox') || e.currentTarget.tagName === 'BUTTON') {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox({ target: document.getElementById('lightbox') });
+});
+</script>
+</body>
+</html>
